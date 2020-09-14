@@ -512,14 +512,10 @@ load()
 
   QFile file(fileName);
 
-  if (!file.open(QIODevice::ReadOnly))
-    return;
-
-  clearScene();
-
-  QByteArray wholeFile = file.readAll();
-
-  loadFromMemory(wholeFile);
+  if (file.open(QIODevice::ReadOnly)){
+     clearScene();
+     loadFromMemory(file.readAll());
+  }
 }
 
 
