@@ -1,4 +1,4 @@
 *.py
 *.pyc
 CMakeLists.txt.user
-build/*
+/build*
