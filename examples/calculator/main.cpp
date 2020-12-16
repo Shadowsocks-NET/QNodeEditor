@@ -36,6 +36,7 @@ registerDataModels()
   ret->registerModel<NumberDisplayDataModel>("I/O//Displays");
 
   ret->registerModel<AdditionModel>("Operators");
+  ret->registerModel<MultiAdditionModel>("Operators");
 
   ret->registerModel<SubtractionModel>("Operators");
 
@@ -94,8 +95,8 @@ main(int argc, char *argv[])
   QWidget mainWidget;
 
   auto menuBar    = new QMenuBar();
-  auto saveAction = menuBar->addAction("Save..");
-  auto loadAction = menuBar->addAction("Load..");
+  auto saveAction = menuBar->addAction("Save");
+  auto loadAction = menuBar->addAction("Load");
 
   QVBoxLayout *l = new QVBoxLayout(&mainWidget);
 

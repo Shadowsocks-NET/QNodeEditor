@@ -51,6 +51,7 @@ FlowScene(std::shared_ptr<DataModelRegistry> registry,
   connect(this, &FlowScene::connectionDeleted, this, &FlowScene::sendConnectionDeletedToNodes);
 }
 
+
 FlowScene::
 FlowScene(QObject * parent)
   : FlowScene(std::make_shared<DataModelRegistry>(),
@@ -85,12 +86,8 @@ createConnection(PortType connectedPort,
   // Note: this connection isn't truly created yet. It's only partially created.
   // Thus, don't send the connectionCreated(...) signal.
 
-  connect(connection.get(),
-          &Connection::connectionCompleted,
-          this,
-          [this](Connection const& c) {
-            connectionCreated(c);
-          });
+  connect(connection.get(), &Connection::connectionCompleted,
+          this, [this](Connection const& c) { connectionCreated(c); });
 
   return connection;
 }
@@ -157,7 +154,7 @@ restoreConnection(QJsonObject const &connectionJson)
       NodeDataType outType { converterJson["out"].toObject()["id"].toString(),
                              converterJson["out"].toObject()["name"].toString() };
 
-      auto converter  =
+      auto converter =
         registry().getTypeConverter(outType, inType);
 
       if (converter)
@@ -243,7 +240,7 @@ removeNode(Node& node)
   // call signal
   nodeDeleted(node);
 
-  for(auto portType: {PortType::In,PortType::Out})
+  for (auto portType: {PortType::In, PortType::Out})
   {
     auto nodeState = node.nodeState();
     auto const & nodeEntries = nodeState.getEntries(portType);

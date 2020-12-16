@@ -30,21 +30,20 @@ bool
 NodeConnectionInteraction::
 canConnect(PortIndex &portIndex, TypeConverter & converter) const
 {
-   // 1) Connection requires a port
+  // 1) Connection requires a port
 
-   PortType requiredPort = connectionRequiredPort();
+  PortType requiredPort = connectionRequiredPort();
 
+  if (requiredPort == PortType::None)
+  {
+    return false;
+  }
 
-   if (requiredPort == PortType::None)
-   {
-      return false;
-   }
+  // 1.5) Forbid connecting the node to itself
+  Node* node = _connection->getNode(oppositePort(requiredPort));
 
-   // 1.5) Forbid connecting the node to itself
-   Node* node = _connection->getNode(oppositePort(requiredPort));
-
-   if (node == _node)
-      return false;
+  if (node == _node)
+    return false;
 
   // 1.6) Check for Cyclic Connection
   // Fix #198
@@ -117,7 +116,7 @@ canConnect(PortIndex &portIndex, TypeConverter & converter) const
     }
     else if (requiredPort == PortType::Out)
     {
-      converter = _scene->registry().getTypeConverter(candidateNodeDataType , connectionDataType);
+      converter = _scene->registry().getTypeConverter(candidateNodeDataType, connectionDataType);
     }
 
     return (converter != nullptr);
@@ -188,7 +187,7 @@ disconnect(PortType portToDisconnect) const
   NodeState &state = _node->nodeState();
 
   // clear pointer to Connection in the NodeState
-  state.getEntries(portToDisconnect)[portIndex].clear();
+  state.getEntries(portToDisconnect)[portIndex].erase(_connection->id());
 
   // 4) Propagate invalid data to IN node
   _connection->propagateEmptyData();
@@ -258,6 +257,7 @@ nodePortIndexUnderScenePoint(PortType portType,
   PortIndex portIndex = nodeGeom.checkHitScenePoint(portType,
                                                     scenePoint,
                                                     sceneTransform);
+
   return portIndex;
 }
 
@@ -266,12 +266,20 @@ bool
 NodeConnectionInteraction::
 nodePortIsEmpty(PortType portType, PortIndex portIndex) const
 {
+  if (portType == PortType::None)
+  {
+    return false;
+  }
+
   NodeState const & nodeState = _node->nodeState();
 
   auto const & entries = nodeState.getEntries(portType);
 
-  if (entries[portIndex].empty()) return true;
+  if (entries[portIndex].empty())
+    return true;
 
-  const auto outPolicy = _node->nodeDataModel()->portOutConnectionPolicy(portIndex);
-  return ( portType == PortType::Out && outPolicy == NodeDataModel::ConnectionPolicy::Many);
+  if (portType == PortType::In)
+    return _node->nodeDataModel()->portInConnectionPolicy(portIndex) == NodeDataModel::ConnectionPolicy::Many;
+
+  return _node->nodeDataModel()->portOutConnectionPolicy(portIndex) == NodeDataModel::ConnectionPolicy::Many;
 }

@@ -70,7 +70,6 @@ public:
   void
   setReaction(ReactToConnectionState reaction,
               PortType reactingPortType = PortType::None,
-
               NodeDataType reactingDataType =
                 NodeDataType());
 

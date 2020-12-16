@@ -95,9 +95,9 @@ reactToPossibleConnection(PortType reactingPortType,
 {
   QTransform const t = _nodeGraphicsObject->sceneTransform();
 
-  QPointF p = t.inverted().map(scenePoint);
+  QPointF nodePoint = t.inverted().map(scenePoint);
 
-  _nodeGeometry.setDraggingPosition(p);
+  _nodeGeometry.setDraggingPosition(nodePoint);
 
   _nodeGraphicsObject->update();
 
@@ -184,9 +184,29 @@ nodeDataModel() const
 
 void
 Node::
-propagateData(std::shared_ptr<NodeData> nodeData,
-              PortIndex inPortIndex) const
+propagateData(PortIndex inPortIndex) const
 {
+  NodeState const& state = nodeState();
+  NodeState::ConnectionPtrSet connections = state.connections(PortType::In, inPortIndex);
+
+  std::vector<std::shared_ptr<NodeData>> nodeData;
+  nodeData.reserve(connections.size());
+  for (const auto& connection : connections)
+  {
+    if(Connection* c = connection.second)
+    {
+      Node* outNode = c->getNode(PortType::Out);
+      PortIndex outNodeIndex = c->getPortIndex(PortType::Out);
+      std::shared_ptr<NodeData> outData = outNode->nodeDataModel()->outData(outNodeIndex);
+      TypeConverter converter = c->getTypeConverter();
+      if (converter != nullptr)
+      {
+        outData = converter(outData);
+      }
+      nodeData.push_back(outData);
+    }
+  }
+
   _nodeDataModel->setInData(std::move(nodeData), inPortIndex);
 
   //Recalculate the nodes visuals. A data change can result in the node taking more space than before, so this forces a recalculate+repaint on the affected node
@@ -201,33 +221,30 @@ void
 Node::
 onDataUpdated(PortIndex index)
 {
-  auto nodeData = _nodeDataModel->outData(index);
-
-  auto connections =
-    _nodeState.connections(PortType::Out, index);
-
+  auto connections = _nodeState.connections(PortType::Out, index);
   for (auto const & c : connections)
-    c.second->propagateData(nodeData);
+    c.second->propagateData();
 }
 
 void
 Node::
 onNodeSizeUpdated()
 {
-    if( nodeDataModel()->embeddedWidget() )
+  if (nodeDataModel()->embeddedWidget())
+  {
+    nodeDataModel()->embeddedWidget()->adjustSize();
+  }
+  nodeGeometry().recalculateSize();
+
+  for(PortType type: {PortType::In, PortType::Out})
+  {
+    for(auto& conn_set : nodeState().getEntries(type))
     {
-        nodeDataModel()->embeddedWidget()->adjustSize();
+      for(auto& pair: conn_set)
+      {
+         Connection* conn = pair.second;
+         conn->getConnectionGraphicsObject().move();
+      }
     }
-    nodeGeometry().recalculateSize();
-    for(PortType type: {PortType::In, PortType::Out})
-    {
-        for(auto& conn_set : nodeState().getEntries(type))
-        {
-            for(auto& pair: conn_set)
-            {
-                Connection* conn = pair.second;
-                conn->getConnectionGraphicsObject().move();
-            }
-        }
-    }
+  }
 }

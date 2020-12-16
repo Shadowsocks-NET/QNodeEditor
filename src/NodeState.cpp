@@ -62,7 +62,7 @@ setConnection(PortType portType,
   auto &connections = getEntries(portType);
 
   connections.at(portIndex).insert(std::make_pair(connection.id(),
-                                               &connection));
+                                                  &connection));
 }
 
 
