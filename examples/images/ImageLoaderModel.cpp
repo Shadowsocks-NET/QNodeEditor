@@ -22,6 +22,12 @@ ImageLoaderModel()
   _label->installEventFilter(this);
 }
 
+ImageLoaderModel::
+~ImageLoaderModel()
+{
+  if(_label && !_label->parent())
+    _label->deleteLater();
+}
 
 unsigned int
 ImageLoaderModel::

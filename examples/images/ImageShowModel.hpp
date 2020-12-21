@@ -1,11 +1,7 @@
 #pragma once
 
-#include <iostream>
-
-#include <QtCore/QObject>
 #include <QtWidgets/QLabel>
 
-#include <nodes/DataModelRegistry>
 #include <nodes/NodeDataModel>
 
 using QtNodes::PortType;
@@ -24,8 +20,7 @@ class ImageShowModel : public NodeDataModel
 public:
   ImageShowModel();
 
-  virtual
-  ~ImageShowModel() {}
+  ~ImageShowModel() override;
 
 public:
 

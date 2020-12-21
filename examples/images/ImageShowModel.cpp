@@ -20,10 +20,14 @@ ImageShowModel()
   f.setItalic(true);
 
   _label->setFont(f);
-
   _label->setFixedSize(200, 200);
-
   _label->installEventFilter(this);
+}
+
+ImageShowModel::~ImageShowModel()
+{
+  if(_label && !_label->parent())
+    _label->deleteLater();
 }
 
 unsigned int

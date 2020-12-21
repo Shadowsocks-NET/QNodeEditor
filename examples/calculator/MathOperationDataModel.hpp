@@ -1,12 +1,6 @@
 #pragma once
 
-#include <QtCore/QObject>
-#include <QtCore/QJsonObject>
-#include <QtWidgets/QLabel>
-
 #include <nodes/NodeDataModel>
-
-#include <iostream>
 
 class DecimalData;
 
@@ -25,8 +19,7 @@ class MathOperationDataModel : public NodeDataModel
 
 public:
 
-  virtual
-  ~MathOperationDataModel() {}
+  MathOperationDataModel();
 
 public:
 
@@ -34,8 +27,7 @@ public:
   nPorts(PortType portType) const override;
 
   NodeDataType
-  dataType(PortType portType,
-           PortIndex portIndex) const override;
+  dataType(PortType portType, PortIndex portIndex) const override;
 
   std::shared_ptr<NodeData>
   outData(PortIndex port) override;
@@ -57,6 +49,12 @@ protected:
   virtual void
   compute() = 0;
 
+  void setWarningState();
+
+  void setValidState();
+
+  void setErrorState(const QString& msg="");
+
 protected:
 
   std::weak_ptr<DecimalData> _number1;
@@ -64,6 +62,8 @@ protected:
 
   std::shared_ptr<DecimalData> _result;
 
-  NodeValidationState modelValidationState = NodeValidationState::Warning;
-  QString modelValidationError = QString("Missing or incorrect inputs");
+private:
+
+  NodeValidationState _modelValidationState = NodeValidationState::Warning;
+  QString _modelValidationError = QString("Missing or incorrect inputs");
 };

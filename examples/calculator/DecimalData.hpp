@@ -1,6 +1,6 @@
 #pragma once
 
-#include <nodes/NodeDataModel>
+#include <nodes/NodeData>
 
 using QtNodes::NodeDataType;
 using QtNodes::NodeData;
@@ -12,11 +12,13 @@ class DecimalData : public NodeData
 public:
 
   DecimalData()
-    : _number(0.0)
+    : _number(0.0),
+      _isValid(false)
   {}
 
-  DecimalData(double const number)
-    : _number(number)
+  DecimalData(double number)
+    : _number(number),
+      _isValid(true)
   {}
 
   NodeDataType type() const override
@@ -31,7 +33,13 @@ public:
   QString numberAsText() const
   { return QString::number(_number, 'f'); }
 
+  bool isValid() const
+  { return _isValid; }
+
 private:
 
   double _number;
+  bool _isValid;
 };
+
+

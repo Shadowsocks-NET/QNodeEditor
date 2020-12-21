@@ -1,7 +1,7 @@
 #include "NumberSourceDataModel.hpp"
 
-#include <QtCore/QJsonValue>
-#include <QtGui/QDoubleValidator>
+#include <QJsonValue>
+#include <QDoubleValidator>
 
 #include "DecimalData.hpp"
 

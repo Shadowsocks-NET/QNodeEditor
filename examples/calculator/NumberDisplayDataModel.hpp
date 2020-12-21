@@ -1,6 +1,5 @@
 #pragma once
 
-#include <QtCore/QObject>
 #include <QtWidgets/QLabel>
 
 #include <nodes/NodeDataModel>
@@ -14,17 +13,13 @@ using QtNodes::NodeDataType;
 using QtNodes::NodeDataModel;
 using QtNodes::NodeValidationState;
 
-/// The model dictates the number of inputs and outputs for the Node.
-/// In this example it has no logic.
+
 class NumberDisplayDataModel : public NodeDataModel
 {
   Q_OBJECT
 
 public:
   NumberDisplayDataModel();
-
-  virtual
-  ~NumberDisplayDataModel() {}
 
 public:
 
@@ -46,8 +41,7 @@ public:
   nPorts(PortType portType) const override;
 
   NodeDataType
-  dataType(PortType portType,
-           PortIndex portIndex) const override;
+  dataType(PortType portType, PortIndex portIndex) const override;
 
   std::shared_ptr<NodeData>
   outData(PortIndex port) override;
