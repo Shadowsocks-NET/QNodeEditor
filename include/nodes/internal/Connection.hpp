@@ -115,7 +115,7 @@ public:
   NodeDataType
   dataType(PortType portType) const;
 
-  TypeConverter getTypeConverter() const;
+  TypeConverter& typeConverter();
 
   void
   setTypeConverter(TypeConverter converter);

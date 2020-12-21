@@ -198,7 +198,7 @@ propagateData(PortIndex inPortIndex) const
       Node* outNode = c->getNode(PortType::Out);
       PortIndex outNodeIndex = c->getPortIndex(PortType::Out);
       std::shared_ptr<NodeData> outData = outNode->nodeDataModel()->outData(outNodeIndex);
-      TypeConverter converter = c->getTypeConverter();
+      auto& converter = c->typeConverter();
       if (converter != nullptr)
       {
         outData = converter(outData);

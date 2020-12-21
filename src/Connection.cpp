@@ -420,9 +420,7 @@ dataType(PortType portType) const
   Q_UNREACHABLE();
 }
 
-TypeConverter
-Connection::
-getTypeConverter() const
+QtNodes::TypeConverter& Connection::typeConverter()
 {
     return _converter;
 }
