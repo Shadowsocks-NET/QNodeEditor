@@ -56,7 +56,7 @@ setInData(std::shared_ptr<NodeData> data, int)
 {
   auto numberData = std::dynamic_pointer_cast<DecimalData>(data);
 
-  if (numberData)
+  if (numberData && numberData->isValid())
   {
     modelValidationState = NodeValidationState::Valid;
     modelValidationError = QString();

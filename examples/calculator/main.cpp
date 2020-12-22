@@ -18,7 +18,7 @@
 #include "DivisionModel.hpp"
 #include "ModuloModel.hpp"
 #include "Converters.hpp"
-
+#include "AccumulatorModel.hpp"
 
 using QtNodes::DataModelRegistry;
 using QtNodes::FlowScene;
@@ -36,7 +36,8 @@ registerDataModels()
   ret->registerModel<NumberDisplayDataModel>("I/O//Displays");
 
   ret->registerModel<AdditionModel>("Operators");
-  ret->registerModel<MultiAdditionModel>("Operators");
+
+  ret->registerModel<AccumulatorModel>("Operators");
 
   ret->registerModel<SubtractionModel>("Operators");
 

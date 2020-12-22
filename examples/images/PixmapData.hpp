@@ -2,7 +2,7 @@
 
 #include <QtGui/QPixmap>
 
-#include <nodes/NodeDataModel>
+#include <nodes/NodeData>
 
 using QtNodes::NodeData;
 using QtNodes::NodeDataType;

@@ -1,11 +1,8 @@
 #pragma once
 
-#include <QtCore/QObject>
-#include <QtWidgets/QLineEdit>
-
 #include <nodes/NodeDataModel>
 
-#include <iostream>
+#include "IntegerData.hpp"
 
 using QtNodes::PortType;
 using QtNodes::PortIndex;
@@ -16,16 +13,12 @@ using QtNodes::NodeValidationState;
 
 class IntegerData;
 
-class ModuloModel
-  : public NodeDataModel
+class ModuloModel : public NodeDataModel
 {
   Q_OBJECT
 
 public:
-  ModuloModel() = default;
-
-  virtual
-  ~ModuloModel() = default;
+   ModuloModel();
 
 public:
 
@@ -42,26 +35,7 @@ public:
   { return true; }
 
   QString
-  portCaption(PortType portType, PortIndex portIndex) const override
-  {
-    switch (portType)
-    {
-      case PortType::In:
-        if (portIndex == 0)
-          return QStringLiteral("Dividend");
-        else if (portIndex == 1)
-          return QStringLiteral("Divisor");
-
-        break;
-
-      case PortType::Out:
-        return QStringLiteral("Result");
-
-      default:
-        break;
-    }
-    return QString();
-  }
+  portCaption(PortType portType, PortIndex portIndex) const override;
 
   QString
   name() const override
@@ -87,13 +61,19 @@ public:
   setInData(std::shared_ptr<NodeData>, int) override;
 
   QWidget *
-  embeddedWidget() override { return nullptr; }
+  embeddedWidget() override
+  { return nullptr; }
 
   NodeValidationState
   validationState() const override;
 
   QString
   validationMessage() const override;
+
+private:
+
+  void
+  compute();
 
 private:
 

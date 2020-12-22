@@ -1,11 +1,8 @@
 #pragma once
 
-#include <QtCore/QObject>
-#include <QtWidgets/QLineEdit>
+#include <QLineEdit>
 
 #include <nodes/NodeDataModel>
-
-#include <iostream>
 
 class DecimalData;
 
@@ -18,16 +15,12 @@ using QtNodes::NodeValidationState;
 
 /// The model dictates the number of inputs and outputs for the Node.
 /// In this example it has no logic.
-class NumberSourceDataModel
-  : public NodeDataModel
+class NumberSourceDataModel : public NodeDataModel
 {
   Q_OBJECT
 
 public:
   NumberSourceDataModel();
-
-  virtual
-  ~NumberSourceDataModel() {}
 
 public:
 
@@ -64,10 +57,11 @@ public:
 
   void
   setInData(std::shared_ptr<NodeData>, int) override
-  { }
+  {}
 
   QWidget *
-  embeddedWidget() override { return _lineEdit; }
+  embeddedWidget() override
+  { return _lineEdit; }
 
 private Q_SLOTS:
 

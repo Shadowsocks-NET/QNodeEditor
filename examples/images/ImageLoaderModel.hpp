@@ -1,11 +1,7 @@
 #pragma once
 
-#include <iostream>
-
-#include <QtCore/QObject>
 #include <QtWidgets/QLabel>
 
-#include <nodes/DataModelRegistry>
 #include <nodes/NodeDataModel>
 
 #include "PixmapData.hpp"
@@ -27,7 +23,7 @@ public:
   ImageLoaderModel();
 
   virtual
-  ~ImageLoaderModel() {}
+  ~ImageLoaderModel() override;
 
 public:
 
@@ -55,7 +51,7 @@ public:
 
   void
   setInData(std::shared_ptr<NodeData>, int) override
-  { }
+  {}
 
   QWidget *
   embeddedWidget() override { return _label; }
