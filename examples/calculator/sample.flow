@@ -1,0 +1,404 @@
+{
+    "connections": [
+        {
+            "in_id": "{f6226db6-0629-4829-a727-87dedee98a45}",
+            "in_index": 0,
+            "in_type": "decimal",
+            "out_id": "{fd3fc650-5349-4e10-b8ad-fbcd5303397a}",
+            "out_index": 0,
+            "out_type": "decimal"
+        },
+        {
+            "in_id": "{fd3fc650-5349-4e10-b8ad-fbcd5303397a}",
+            "in_index": 1,
+            "in_type": "decimal",
+            "out_id": "{06df42f4-3281-4c49-af14-f509656c5c8e}",
+            "out_index": 0,
+            "out_type": "decimal"
+        },
+        {
+            "in_id": "{27d14791-aa17-4778-adeb-e93d28a65f76}",
+            "in_index": 1,
+            "in_type": "decimal",
+            "out_id": "{f6226db6-0629-4829-a727-87dedee98a45}",
+            "out_index": 0,
+            "out_type": "decimal"
+        },
+        {
+            "in_id": "{7f9054b7-65f0-4954-aa8a-e23aa72b01e1}",
+            "in_index": 0,
+            "in_type": "decimal",
+            "out_id": "{27d14791-aa17-4778-adeb-e93d28a65f76}",
+            "out_index": 0,
+            "out_type": "decimal"
+        },
+        {
+            "converter": {
+                "in": {
+                    "id": "decimal",
+                    "name": "Decimal"
+                },
+                "out": {
+                    "id": "integer",
+                    "name": "Integer"
+                }
+            },
+            "in_id": "{27d14791-aa17-4778-adeb-e93d28a65f76}",
+            "in_index": 0,
+            "in_type": "decimal",
+            "out_id": "{01173efc-581a-42d6-8924-aa121716dda8}",
+            "out_index": 0,
+            "out_type": "integer"
+        },
+        {
+            "in_id": "{52c29f90-9f31-4ea1-87ae-a2748f160a54}",
+            "in_index": 2,
+            "in_type": "decimal",
+            "out_id": "{136c0d43-9f47-40ed-8d52-2aec0479d340}",
+            "out_index": 0,
+            "out_type": "decimal"
+        },
+        {
+            "in_id": "{52c29f90-9f31-4ea1-87ae-a2748f160a54}",
+            "in_index": 0,
+            "in_type": "decimal",
+            "out_id": "{614ed71a-0954-424b-aa28-1722a28d311b}",
+            "out_index": 0,
+            "out_type": "decimal"
+        },
+        {
+            "in_id": "{fd3fc650-5349-4e10-b8ad-fbcd5303397a}",
+            "in_index": 0,
+            "in_type": "decimal",
+            "out_id": "{66b3a26b-a24c-479a-b24a-f686a6a63bfe}",
+            "out_index": 0,
+            "out_type": "decimal"
+        },
+        {
+            "in_id": "{614ed71a-0954-424b-aa28-1722a28d311b}",
+            "in_index": 1,
+            "in_type": "decimal",
+            "out_id": "{136c0d43-9f47-40ed-8d52-2aec0479d340}",
+            "out_index": 0,
+            "out_type": "decimal"
+        },
+        {
+            "in_id": "{614ed71a-0954-424b-aa28-1722a28d311b}",
+            "in_index": 0,
+            "in_type": "decimal",
+            "out_id": "{a0869f60-a5df-40a4-8e50-8cf6fb19e25a}",
+            "out_index": 0,
+            "out_type": "decimal"
+        },
+        {
+            "converter": {
+                "in": {
+                    "id": "integer",
+                    "name": "Integer"
+                },
+                "out": {
+                    "id": "decimal",
+                    "name": "Decimal"
+                }
+            },
+            "in_id": "{01173efc-581a-42d6-8924-aa121716dda8}",
+            "in_index": 1,
+            "in_type": "integer",
+            "out_id": "{06df42f4-3281-4c49-af14-f509656c5c8e}",
+            "out_index": 0,
+            "out_type": "decimal"
+        },
+        {
+            "in_id": "{52c29f90-9f31-4ea1-87ae-a2748f160a54}",
+            "in_index": 1,
+            "in_type": "decimal",
+            "out_id": "{a0869f60-a5df-40a4-8e50-8cf6fb19e25a}",
+            "out_index": 0,
+            "out_type": "decimal"
+        },
+        {
+            "converter": {
+                "in": {
+                    "id": "integer",
+                    "name": "Integer"
+                },
+                "out": {
+                    "id": "decimal",
+                    "name": "Decimal"
+                }
+            },
+            "in_id": "{01173efc-581a-42d6-8924-aa121716dda8}",
+            "in_index": 0,
+            "in_type": "integer",
+            "out_id": "{66b3a26b-a24c-479a-b24a-f686a6a63bfe}",
+            "out_index": 0,
+            "out_type": "decimal"
+        },
+        {
+            "in_id": "{8ab4c426-b429-4a3a-ad98-3c7a9a8b8283}",
+            "in_index": 0,
+            "in_type": "decimal",
+            "out_id": "{8d948869-751e-47bd-960e-2ccef4d8dc69}",
+            "out_index": 0,
+            "out_type": "decimal"
+        },
+        {
+            "in_id": "{52c29f90-9f31-4ea1-87ae-a2748f160a54}",
+            "in_index": 3,
+            "in_type": "decimal",
+            "out_id": "{8d948869-751e-47bd-960e-2ccef4d8dc69}",
+            "out_index": 0,
+            "out_type": "decimal"
+        },
+        {
+            "in_id": "{8d948869-751e-47bd-960e-2ccef4d8dc69}",
+            "in_index": 0,
+            "in_type": "decimal",
+            "out_id": "{a0869f60-a5df-40a4-8e50-8cf6fb19e25a}",
+            "out_index": 0,
+            "out_type": "decimal"
+        },
+        {
+            "in_id": "{8ab4c426-b429-4a3a-ad98-3c7a9a8b8283}",
+            "in_index": 0,
+            "in_type": "decimal",
+            "out_id": "{a0869f60-a5df-40a4-8e50-8cf6fb19e25a}",
+            "out_index": 0,
+            "out_type": "decimal"
+        },
+        {
+            "in_id": "{8d948869-751e-47bd-960e-2ccef4d8dc69}",
+            "in_index": 1,
+            "in_type": "decimal",
+            "out_id": "{136c0d43-9f47-40ed-8d52-2aec0479d340}",
+            "out_index": 0,
+            "out_type": "decimal"
+        },
+        {
+            "in_id": "{8ab4c426-b429-4a3a-ad98-3c7a9a8b8283}",
+            "in_index": 0,
+            "in_type": "decimal",
+            "out_id": "{52c29f90-9f31-4ea1-87ae-a2748f160a54}",
+            "out_index": 0,
+            "out_type": "decimal"
+        },
+        {
+            "in_id": "{8ab4c426-b429-4a3a-ad98-3c7a9a8b8283}",
+            "in_index": 0,
+            "in_type": "decimal",
+            "out_id": "{136c0d43-9f47-40ed-8d52-2aec0479d340}",
+            "out_index": 0,
+            "out_type": "decimal"
+        },
+        {
+            "in_id": "{9f7db68f-c71e-4041-a916-a0e3a32e8a0a}",
+            "in_index": 0,
+            "in_type": "decimal",
+            "out_id": "{8ab4c426-b429-4a3a-ad98-3c7a9a8b8283}",
+            "out_index": 0,
+            "out_type": "decimal"
+        },
+        {
+            "in_id": "{28112537-3396-4729-91da-68e1ea95d9de}",
+            "in_index": 0,
+            "in_type": "decimal",
+            "out_id": "{52c29f90-9f31-4ea1-87ae-a2748f160a54}",
+            "out_index": 0,
+            "out_type": "decimal"
+        },
+        {
+            "converter": {
+                "in": {
+                    "id": "decimal",
+                    "name": "Decimal"
+                },
+                "out": {
+                    "id": "integer",
+                    "name": "Integer"
+                }
+            },
+            "in_id": "{f6226db6-0629-4829-a727-87dedee98a45}",
+            "in_index": 1,
+            "in_type": "decimal",
+            "out_id": "{01173efc-581a-42d6-8924-aa121716dda8}",
+            "out_index": 0,
+            "out_type": "integer"
+        },
+        {
+            "in_id": "{6034a854-5212-475b-8444-d80c617ba203}",
+            "in_index": 0,
+            "in_type": "decimal",
+            "out_id": "{8d948869-751e-47bd-960e-2ccef4d8dc69}",
+            "out_index": 0,
+            "out_type": "decimal"
+        }
+    ],
+    "nodes": [
+        {
+            "id": "{01173efc-581a-42d6-8924-aa121716dda8}",
+            "model": {
+                "name": "Modulo"
+            },
+            "position": {
+                "x": 66.96666666666667,
+                "y": 773.3
+            }
+        },
+        {
+            "id": "{27d14791-aa17-4778-adeb-e93d28a65f76}",
+            "model": {
+                "dynamic_inputs": 3,
+                "name": "Max"
+            },
+            "position": {
+                "x": 595,
+                "y": 869.1666666666669
+            }
+        },
+        {
+            "id": "{28112537-3396-4729-91da-68e1ea95d9de}",
+            "model": {
+                "name": "Result"
+            },
+            "position": {
+                "x": 804,
+                "y": 158
+            }
+        },
+        {
+            "id": "{136c0d43-9f47-40ed-8d52-2aec0479d340}",
+            "model": {
+                "name": "NumberSource",
+                "number": "0.5"
+            },
+            "position": {
+                "x": -322.9599999999999,
+                "y": 375.00000000000017
+            }
+        },
+        {
+            "id": "{f6226db6-0629-4829-a727-87dedee98a45}",
+            "model": {
+                "name": "Division"
+            },
+            "position": {
+                "x": 291.6666666666666,
+                "y": 974.1666666666666
+            }
+        },
+        {
+            "id": "{614ed71a-0954-424b-aa28-1722a28d311b}",
+            "model": {
+                "name": "Subtraction"
+            },
+            "position": {
+                "x": 139.88666666666674,
+                "y": 25.326666666666668
+            }
+        },
+        {
+            "id": "{06df42f4-3281-4c49-af14-f509656c5c8e}",
+            "model": {
+                "name": "NumberSource",
+                "number": "5"
+            },
+            "position": {
+                "x": -351.0000000000001,
+                "y": 858.3999999999997
+            }
+        },
+        {
+            "id": "{52c29f90-9f31-4ea1-87ae-a2748f160a54}",
+            "model": {
+                "dynamic_inputs": 5,
+                "name": "Min"
+            },
+            "position": {
+                "x": 507.76000000000005,
+                "y": 142.76000000000022
+            }
+        },
+        {
+            "id": "{9f7db68f-c71e-4041-a916-a0e3a32e8a0a}",
+            "model": {
+                "name": "Result"
+            },
+            "position": {
+                "x": 1075.6799999999996,
+                "y": 544.3199999999999
+            }
+        },
+        {
+            "id": "{7f9054b7-65f0-4954-aa8a-e23aa72b01e1}",
+            "model": {
+                "name": "Result"
+            },
+            "position": {
+                "x": 882.4999999999998,
+                "y": 806.6666666666667
+            }
+        },
+        {
+            "id": "{6034a854-5212-475b-8444-d80c617ba203}",
+            "model": {
+                "name": "Result"
+            },
+            "position": {
+                "x": 583.1999999999999,
+                "y": 694.4
+            }
+        },
+        {
+            "id": "{66b3a26b-a24c-479a-b24a-f686a6a63bfe}",
+            "model": {
+                "name": "NumberSource",
+                "number": "13"
+            },
+            "position": {
+                "x": -345.59999999999997,
+                "y": 691.1999999999999
+            }
+        },
+        {
+            "id": "{8ab4c426-b429-4a3a-ad98-3c7a9a8b8283}",
+            "model": {
+                "name": "Accumulator"
+            },
+            "position": {
+                "x": 766.8,
+                "y": 526.0799999999999
+            }
+        },
+        {
+            "id": "{8d948869-751e-47bd-960e-2ccef4d8dc69}",
+            "model": {
+                "name": "Multiplication"
+            },
+            "position": {
+                "x": 144.76000000000005,
+                "y": 536.7199999999999
+            }
+        },
+        {
+            "id": "{fd3fc650-5349-4e10-b8ad-fbcd5303397a}",
+            "model": {
+                "name": "Addition"
+            },
+            "position": {
+                "x": 7.499999999999972,
+                "y": 1009.166666666667
+            }
+        },
+        {
+            "id": "{a0869f60-a5df-40a4-8e50-8cf6fb19e25a}",
+            "model": {
+                "name": "NumberSource",
+                "number": "2"
+            },
+            "position": {
+                "x": -348.49199999999996,
+                "y": 175.7506666666667
+            }
+        }
+    ]
+}

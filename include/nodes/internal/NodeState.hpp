@@ -46,7 +46,8 @@ public:
   getEntries(PortType);
 
   ConnectionPtrSet
-  connections(PortType portType, PortIndex portIndex) const;
+  connections(PortType portType,
+              PortIndex portIndex) const;
 
   void
   setConnection(PortType portType,

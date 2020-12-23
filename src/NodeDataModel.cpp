@@ -24,6 +24,19 @@ save() const
 
   modelJson["name"] = name();
 
+  // if ports are dynamics, write their value when saved.
+  // when restored, model need to update the dynamic value.
+
+  if(hasDynamicPorts(PortType::In))
+  {
+     modelJson["dynamic_inputs"]  = static_cast<int>(nPorts(PortType::In));
+  }
+
+  if(hasDynamicPorts(PortType::Out))
+  {
+     modelJson["dynamic_outputs"]  = static_cast<int>(nPorts(PortType::Out));
+  }
+
   return modelJson;
 }
 
@@ -44,6 +57,7 @@ portConnectionPolicy(PortType portType, PortIndex portIndex) const
       result = portOutConnectionPolicy(portIndex);
       break;
 
+    case PortType::None:
     default:
       break;
   }

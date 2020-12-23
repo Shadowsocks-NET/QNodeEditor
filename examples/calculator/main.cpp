@@ -17,8 +17,10 @@
 #include "MultiplicationModel.hpp"
 #include "DivisionModel.hpp"
 #include "ModuloModel.hpp"
-#include "Converters.hpp"
 #include "AccumulatorModel.hpp"
+#include "MinModel.hpp"
+#include "MaxModel.hpp"
+#include "Converters.hpp"
 
 using QtNodes::DataModelRegistry;
 using QtNodes::FlowScene;
@@ -46,6 +48,10 @@ registerDataModels()
   ret->registerModel<DivisionModel>("Operators");
 
   ret->registerModel<ModuloModel>("Operators");
+
+  ret->registerModel<MinModel>("Operators");
+
+  ret->registerModel<MaxModel>("Operators");
 
   ret->registerTypeConverter(std::make_pair(DecimalData().type(),
                                             IntegerData().type()),

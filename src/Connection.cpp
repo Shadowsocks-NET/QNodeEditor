@@ -439,7 +439,10 @@ propagateData() const
 {
   if (_inNode)
   {
-    _inNode->propagateData(_inPortIndex);
+     if (_inPortIndex < static_cast<int>(_inNode->nodeDataModel()->nPorts(PortType::In)))
+    {
+      _inNode->propagateData(_inPortIndex);
+    }
   }
 }
 

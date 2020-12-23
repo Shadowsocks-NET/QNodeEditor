@@ -69,6 +69,11 @@ public:
   unsigned int
   nPorts(PortType portType) const = 0;
 
+  /// Return if ports are dynamics
+  virtual
+  bool
+  hasDynamicPorts(PortType) const { return false; }
+
   virtual
   NodeDataType
   dataType(PortType portType, PortIndex portIndex) const = 0;
@@ -172,6 +177,15 @@ Q_SIGNALS:
 
   void
   embeddedWidgetSizeUpdated();
+
+  void
+  portAdded(PortType type, PortIndex index);
+
+  void
+  portMoved(PortType type, PortIndex oldIndex, PortIndex newIndex);
+
+  void
+  portRemoved(PortType type, PortIndex index);
 
 private:
 
