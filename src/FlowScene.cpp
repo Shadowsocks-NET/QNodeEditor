@@ -223,11 +223,19 @@ restoreNode(QJsonObject const& nodeJson)
     throw std::logic_error(std::string("No registered model with name ") +
                            modelName.toLocal8Bit().data());
 
-  auto node = detail::make_unique<Node>(std::move(dataModel));
-  auto ngo  = detail::make_unique<NodeGraphicsObject>(*this, *node);
-  node->setGraphicsObject(std::move(ngo));
+  // restore data model before the node, to be able to restore dynamic ports.
+  dataModel->restore(nodeJson["model"].toObject());
 
-  node->restore(nodeJson);
+  // create a node with uuid taken from json
+  auto node = detail::make_unique<Node>(std::move(dataModel), QUuid(nodeJson["id"].toString()));
+
+  // create node graphics object
+  auto ngo  = detail::make_unique<NodeGraphicsObject>(*this, *node);
+  QJsonObject positionJson = nodeJson["position"].toObject();
+  QPointF point(positionJson["x"].toDouble(), positionJson["y"].toDouble());
+  ngo->setPos(point);
+
+  node->setGraphicsObject(std::move(ngo));
 
   auto nodePtr = node.get();
   _nodes[node->id()] = std::move(node);

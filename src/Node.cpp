@@ -25,7 +25,12 @@ using QtNodes::PortType;
 
 Node::
 Node(std::unique_ptr<NodeDataModel> && dataModel)
-  : _uid(QUuid::createUuid())
+  : Node(std::move(dataModel), QUuid::createUuid())
+{}
+
+Node::
+Node(std::unique_ptr<NodeDataModel> && dataModel, QUuid&& uuid)
+  : _uid(std::move(uuid))
   , _nodeDataModel(std::move(dataModel))
   , _nodeState(_nodeDataModel)
   , _nodeGeometry(_nodeDataModel)
@@ -84,29 +89,7 @@ restore(QJsonObject const& json)
                     positionJson["y"].toDouble());
   _nodeGraphicsObject->setPos(point);
 
-  auto jsonModel = json["model"].toObject();
-
-  // if dynamic ports are enabled, additional ports should be added
-
-  if(_nodeDataModel->hasDynamicPorts(PortType::In))
-  {
-     int inCount = jsonModel["dynamic_inputs"].toInt(0);
-     for(int i=0; i<inCount; ++i)
-     {
-        insertEntry(PortType::In, i);
-     }
-  }
-
-  if(_nodeDataModel->hasDynamicPorts(PortType::Out))
-  {
-     int outCount = jsonModel["dynamic_outputs"].toInt(0);
-     for(int i=0; i<outCount; ++i)
-     {
-        insertEntry(PortType::Out, i);
-     }
-  }
-
-  _nodeDataModel->restore(jsonModel);
+  _nodeDataModel->restore(json["model"].toObject());
 }
 
 

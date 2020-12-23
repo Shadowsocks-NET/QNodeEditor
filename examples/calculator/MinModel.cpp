@@ -157,6 +157,8 @@ restore(const QJsonObject& obj)
 {
    int in = obj["dynamic_inputs"].toInt();
    if(in > 0){
-      _numberList.resize(in);
+     // since when node is saved port's number is size+1 with an empty port
+     // to restore the correct size of the array it has to be input-1
+      _numberList.resize(in-1);
    }
 }
