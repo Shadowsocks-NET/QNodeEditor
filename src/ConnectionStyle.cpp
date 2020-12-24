@@ -15,7 +15,7 @@
 
 using QtNodes::ConnectionStyle;
 
-inline void initResources() { Q_INIT_RESOURCE(resources); }
+inline void initResources() { Q_INIT_RESOURCE(nodeeditor); }
 
 ConnectionStyle::
 ConnectionStyle()

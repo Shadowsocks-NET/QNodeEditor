@@ -44,7 +44,7 @@ find_package(Qt5 5.10 COMPONENTS
              Widgets
              Gui)
 
-qt5_add_resources(RESOURCES ./resources/resources.qrc)
+qt5_add_resources(RESOURCES ./resources/nodeeditor.qrc)
 
 # Unfortunately, as we have a split include/src, AUTOMOC doesn't work.
 # We'll have to manually specify some files
