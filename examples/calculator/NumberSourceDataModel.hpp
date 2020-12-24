@@ -21,6 +21,7 @@ class NumberSourceDataModel : public NodeDataModel
 
 public:
   NumberSourceDataModel();
+  ~NumberSourceDataModel() override;
 
 public:
 

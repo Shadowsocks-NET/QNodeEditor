@@ -19,6 +19,13 @@ NumberSourceDataModel()
   _lineEdit->setText("0.0");
 }
 
+NumberSourceDataModel::~NumberSourceDataModel()
+{
+  if(_lineEdit && !_lineEdit->parent()){
+    _lineEdit->deleteLater();
+  }
+}
+
 
 QJsonObject
 NumberSourceDataModel::

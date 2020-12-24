@@ -9,6 +9,13 @@ NumberDisplayDataModel()
   _label->setMargin(3);
 }
 
+NumberDisplayDataModel::~NumberDisplayDataModel()
+{
+  if(_label && !_label->parent()){
+    _label->deleteLater();
+  }
+}
+
 
 unsigned int
 NumberDisplayDataModel::

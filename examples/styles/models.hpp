@@ -1,8 +1,5 @@
 #pragma once
 
-#include <QtCore/QObject>
-
-#include <nodes/NodeData>
 #include <nodes/NodeDataModel>
 
 #include <memory>
@@ -35,61 +32,31 @@ class MyDataModel : public NodeDataModel
 
 public:
 
-  virtual
-  ~MyDataModel() {}
-
-public:
+  QString
+  caption() const override;
 
   QString
-  caption() const override
-  {
-    return QString("My Data Model");
-  }
-
-  QString
-  name() const override
-  {
-    return QString("MyDataModel");
-  }
+  name() const override;
 
 public:
 
   QJsonObject
-  save() const override
-  {
-    QJsonObject modelJson;
-
-    modelJson["name"] = name();
-
-    return modelJson;
-  }
+  save() const override;
 
 public:
 
   unsigned int
-  nPorts(PortType) const override
-  {
-    return 3;
-  }
+  nPorts(PortType) const override;
 
   NodeDataType
-  dataType(PortType, PortIndex) const override
-  {
-    return MyNodeData().type();
-  }
+  dataType(PortType, PortIndex) const override;
 
   std::shared_ptr<NodeData>
-  outData(PortIndex) override
-  {
-    return std::make_shared<MyNodeData>();
-  }
+  outData(PortIndex) override;
 
   void
-  setInData(std::shared_ptr<NodeData>, int) override
-  {
-    //
-  }
+  setInData(std::shared_ptr<NodeData>, int) override;
 
   QWidget *
-  embeddedWidget() override { return nullptr; }
+  embeddedWidget() override;
 };

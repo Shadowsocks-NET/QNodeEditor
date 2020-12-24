@@ -20,6 +20,7 @@ class NumberDisplayDataModel : public NodeDataModel
 
 public:
   NumberDisplayDataModel();
+  ~NumberDisplayDataModel() override;
 
 public:
 

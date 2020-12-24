@@ -1,6 +1,6 @@
 #pragma once
 
-#include <nodes/NodeDataModel>
+#include <nodes/NodeData>
 
 using QtNodes::NodeData;
 using QtNodes::NodeDataType;
@@ -10,8 +10,7 @@ using QtNodes::NodeDataType;
 class TextData : public NodeData
 {
 public:
-
-  TextData() {}
+  TextData() = default;
 
   TextData(QString const &text)
     : _text(text)

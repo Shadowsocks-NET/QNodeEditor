@@ -1,13 +1,10 @@
 #pragma once
 
-#include <QtCore/QObject>
 #include <QtWidgets/QLabel>
-
-#include "TextData.hpp"
 
 #include <nodes/NodeDataModel>
 
-#include <iostream>
+#include "TextData.hpp"
 
 using QtNodes::PortType;
 using QtNodes::PortIndex;
@@ -23,8 +20,7 @@ class TextDisplayDataModel : public NodeDataModel
 public:
   TextDisplayDataModel();
 
-  virtual
-  ~TextDisplayDataModel() {}
+  ~TextDisplayDataModel() override;
 
 public:
 
@@ -55,24 +51,11 @@ public:
   outData(PortIndex port) override;
 
   void
-  setInData(std::shared_ptr<NodeData> data, int) override
-  {
-    auto textData = std::dynamic_pointer_cast<TextData>(data);
-
-    if (textData)
-    {
-      _label->setText(textData->text());
-    }
-    else
-    {
-      _label->clear();
-    }
-
-    _label->adjustSize();
-  }
+  setInData(std::shared_ptr<NodeData> data, int) override;
 
   QWidget *
-  embeddedWidget() override { return _label; }
+  embeddedWidget() override
+  { return _label; }
 
 private:
 

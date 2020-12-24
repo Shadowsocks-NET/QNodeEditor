@@ -9,6 +9,15 @@ TextSourceDataModel()
 }
 
 
+TextSourceDataModel::
+~TextSourceDataModel()
+{
+  if(_lineEdit && !_lineEdit->parent()){
+    _lineEdit->deleteLater();
+  }
+}
+
+
 unsigned int
 TextSourceDataModel::
 nPorts(PortType portType) const

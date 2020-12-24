@@ -13,7 +13,7 @@ class PixmapData : public NodeData
 {
 public:
 
-  PixmapData() {}
+  PixmapData() = default;
 
   PixmapData(QPixmap const &pixmap)
     : _pixmap(pixmap)

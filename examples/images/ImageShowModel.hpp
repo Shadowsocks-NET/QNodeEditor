@@ -51,10 +51,12 @@ public:
   setInData(std::shared_ptr<NodeData> nodeData, PortIndex port) override;
 
   QWidget *
-  embeddedWidget() override { return _label; }
+  embeddedWidget() override
+  { return _label; }
 
   bool
-  resizable() const override { return true; }
+  resizable() const override
+  { return true; }
 
 protected:
 

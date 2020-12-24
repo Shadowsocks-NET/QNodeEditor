@@ -2,4 +2,5 @@
 *.pyc
 _build
 CMakeLists.txt.user
-/build*
+**/build*
+**.pro.user

@@ -8,6 +8,15 @@ TextDisplayDataModel()
 }
 
 
+TextDisplayDataModel::
+~TextDisplayDataModel()
+{
+  if(_label && !_label->parent()){
+    _label->deleteLater();
+  }
+}
+
+
 unsigned int
 TextDisplayDataModel::
 nPorts(PortType portType) const
@@ -45,4 +54,20 @@ outData(PortIndex)
 {
   std::shared_ptr<NodeData> ptr;
   return ptr;
+}
+
+void TextDisplayDataModel::setInData(std::shared_ptr<QtNodes::NodeData> data, int)
+{
+  auto textData = std::dynamic_pointer_cast<TextData>(data);
+
+  if (textData)
+  {
+    _label->setText(textData->text());
+  }
+  else
+  {
+    _label->clear();
+  }
+
+  _label->adjustSize();
 }

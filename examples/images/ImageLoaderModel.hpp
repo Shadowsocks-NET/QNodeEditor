@@ -32,7 +32,8 @@ public:
   { return QString("Image Source"); }
 
   QString
-  name() const override { return QString("ImageLoaderModel"); }
+  name() const override
+  { return QString("ImageLoaderModel"); }
 
 public:
 
@@ -54,10 +55,12 @@ public:
   {}
 
   QWidget *
-  embeddedWidget() override { return _label; }
+  embeddedWidget() override
+  { return _label; }
 
   bool
-  resizable() const override { return true; }
+  resizable() const override
+  { return true; }
 
 protected:
 

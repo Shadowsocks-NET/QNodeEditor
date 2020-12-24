@@ -1,13 +1,10 @@
 #pragma once
 
-#include <QtCore/QObject>
 #include <QtWidgets/QLineEdit>
-
-#include "TextData.hpp"
 
 #include <nodes/NodeDataModel>
 
-#include <iostream>
+#include "TextData.hpp"
 
 using QtNodes::PortType;
 using QtNodes::PortIndex;
@@ -23,8 +20,7 @@ class TextSourceDataModel : public NodeDataModel
 public:
   TextSourceDataModel();
 
-  virtual
-  ~TextSourceDataModel() {}
+  ~TextSourceDataModel() override;
 
 public:
 
@@ -33,7 +29,8 @@ public:
   { return QString("Text Source"); }
 
   bool
-  captionVisible() const override { return false; }
+  captionVisible() const override
+  { return false; }
 
   static QString
   Name()
@@ -56,10 +53,11 @@ public:
 
   void
   setInData(std::shared_ptr<NodeData>, int) override
-  { }
+  {}
 
   QWidget *
-  embeddedWidget() override { return _lineEdit; }
+  embeddedWidget() override
+  { return _lineEdit; }
 
 private Q_SLOTS:
 
