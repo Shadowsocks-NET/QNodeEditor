@@ -21,7 +21,6 @@ class NumberSourceDataModel : public NodeDataModel
 
 public:
   NumberSourceDataModel();
-  ~NumberSourceDataModel() override;
 
 public:
 
@@ -61,8 +60,7 @@ public:
   {}
 
   QWidget *
-  embeddedWidget() override
-  { return _lineEdit; }
+  embeddedWidget() override;
 
 private Q_SLOTS:
 

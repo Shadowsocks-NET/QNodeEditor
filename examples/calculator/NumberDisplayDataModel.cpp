@@ -4,16 +4,8 @@
 
 NumberDisplayDataModel::
 NumberDisplayDataModel()
-  : _label(new QLabel())
+  : _label(nullptr)
 {
-  _label->setMargin(3);
-}
-
-NumberDisplayDataModel::~NumberDisplayDataModel()
-{
-  if(_label && !_label->parent()){
-    _label->deleteLater();
-  }
 }
 
 
@@ -67,22 +59,38 @@ setInData(std::shared_ptr<NodeData> data, int)
   {
     modelValidationState = NodeValidationState::Valid;
     modelValidationError = QString();
-    _label->setText(numberData->numberAsText());
+    Q_EMIT updateLabel(numberData->numberAsText());
   }
   else
   {
     modelValidationState = NodeValidationState::Warning;
     modelValidationError = QStringLiteral("Missing or incorrect inputs");
-    _label->clear();
+    Q_EMIT updateLabel("");
   }
+}
 
-  _label->adjustSize();
+QWidget*
+NumberDisplayDataModel::
+embeddedWidget()
+{
+   if (!_label)
+   {
+      _label = new QLabel();
+      _label->setMargin(3);
+      connect(this, &NumberDisplayDataModel::updateLabel,
+              _label, [this](const QString& text){
+                _label->setText(text);
+                _label->adjustSize();
+              });
+   }
+
+   return _label;
 }
 
 
 NodeValidationState
 NumberDisplayDataModel::
-validationState() const
+   validationState() const
 {
   return modelValidationState;
 }

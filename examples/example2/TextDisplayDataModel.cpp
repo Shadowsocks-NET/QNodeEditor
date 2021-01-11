@@ -2,18 +2,8 @@
 
 TextDisplayDataModel::
 TextDisplayDataModel()
-  : _label(new QLabel("Resulting Text"))
+  : _label(nullptr)
 {
-  _label->setMargin(3);
-}
-
-
-TextDisplayDataModel::
-~TextDisplayDataModel()
-{
-  if(_label && !_label->parent()){
-    _label->deleteLater();
-  }
 }
 
 
@@ -62,12 +52,28 @@ void TextDisplayDataModel::setInData(std::shared_ptr<QtNodes::NodeData> data, in
 
   if (textData)
   {
-    _label->setText(textData->text());
+     Q_EMIT updateLabel(textData->text());
   }
   else
   {
-    _label->clear();
+    Q_EMIT updateLabel("");
   }
+}
 
-  _label->adjustSize();
+QWidget*
+TextDisplayDataModel::
+embeddedWidget()
+{
+   if (!_label)
+   {
+      _label = new QLabel();
+      _label->setMargin(3);
+      connect(this, &TextDisplayDataModel::updateLabel,
+              _label, [this](const QString& text){
+                 _label->setText(text);
+                 _label->adjustSize();
+              });
+   }
+
+   return _label;
 }

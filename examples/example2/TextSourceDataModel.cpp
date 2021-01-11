@@ -2,21 +2,10 @@
 
 TextSourceDataModel::
 TextSourceDataModel()
-  : _lineEdit(new QLineEdit("Default Text"))
+   : _text("Default Text"),
+     _lineEdit(nullptr)
 {
-  connect(_lineEdit, &QLineEdit::textEdited,
-          this, &TextSourceDataModel::onTextEdited);
 }
-
-
-TextSourceDataModel::
-~TextSourceDataModel()
-{
-  if(_lineEdit && !_lineEdit->parent()){
-    _lineEdit->deleteLater();
-  }
-}
-
 
 unsigned int
 TextSourceDataModel::
@@ -45,7 +34,7 @@ void
 TextSourceDataModel::
 onTextEdited(QString const &string)
 {
-  Q_UNUSED(string);
+  _text = string;
 
   Q_EMIT dataUpdated(0);
 }
@@ -63,5 +52,18 @@ std::shared_ptr<NodeData>
 TextSourceDataModel::
 outData(PortIndex)
 {
-  return std::make_shared<TextData>(_lineEdit->text());
+  return std::make_shared<TextData>(_text);
+}
+
+QWidget* TextSourceDataModel::embeddedWidget()
+{
+   if(!_lineEdit)
+   {
+     _lineEdit = new QLineEdit(_text);
+
+     connect(_lineEdit, &QLineEdit::textEdited,
+             this, &TextSourceDataModel::onTextEdited);
+   }
+
+   return _lineEdit;
 }

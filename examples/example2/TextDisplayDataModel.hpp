@@ -20,8 +20,6 @@ class TextDisplayDataModel : public NodeDataModel
 public:
   TextDisplayDataModel();
 
-  ~TextDisplayDataModel() override;
-
 public:
 
   QString
@@ -54,8 +52,12 @@ public:
   setInData(std::shared_ptr<NodeData> data, int) override;
 
   QWidget *
-  embeddedWidget() override
-  { return _label; }
+  embeddedWidget() override;
+
+signals:
+
+  void
+  updateLabel(QString);
 
 private:
 

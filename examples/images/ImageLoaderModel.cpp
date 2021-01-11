@@ -7,24 +7,8 @@
 
 ImageLoaderModel::
 ImageLoaderModel()
-  : _label(new QLabel("Double click to load image"))
+  : _label(nullptr)
 {
-  _label->setAlignment(Qt::AlignVCenter | Qt::AlignHCenter);
-
-  QFont f = _label->font();
-  f.setBold(true);
-  f.setItalic(true);
-
-  _label->setFont(f);
-  _label->setFixedSize(200, 200);
-  _label->installEventFilter(this);
-}
-
-ImageLoaderModel::
-~ImageLoaderModel()
-{
-  if(_label && !_label->parent())
-    _label->deleteLater();
 }
 
 unsigned int
@@ -54,7 +38,7 @@ bool
 ImageLoaderModel::
 eventFilter(QObject *object, QEvent *event)
 {
-  if (object == _label)
+   if (_label && (object == _label))
   {
     int w = _label->width();
     int h = _label->height();
@@ -100,4 +84,25 @@ ImageLoaderModel::
 outData(PortIndex)
 {
   return std::make_shared<PixmapData>(_pixmap);
+}
+
+QWidget*
+ImageLoaderModel::
+embeddedWidget()
+{
+   if (!_label)
+   {
+      _label = new QLabel("Double click to load image");
+      _label->setAlignment(Qt::AlignVCenter | Qt::AlignHCenter);
+
+      QFont f = _label->font();
+      f.setBold(true);
+      f.setItalic(true);
+
+      _label->setFont(f);
+      _label->setFixedSize(200, 200);
+      _label->installEventFilter(this);
+   }
+
+  return _label;
 }

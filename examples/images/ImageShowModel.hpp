@@ -20,8 +20,6 @@ class ImageShowModel : public NodeDataModel
 public:
   ImageShowModel();
 
-  ~ImageShowModel() override;
-
 public:
 
   QString
@@ -51,8 +49,7 @@ public:
   setInData(std::shared_ptr<NodeData> nodeData, PortIndex port) override;
 
   QWidget *
-  embeddedWidget() override
-  { return _label; }
+  embeddedWidget() override;
 
   bool
   resizable() const override
@@ -62,6 +59,11 @@ protected:
 
   bool
   eventFilter(QObject *object, QEvent *event) override;
+
+signals:
+
+  void
+  updateLabel(const QPixmap&);
 
 private:
 

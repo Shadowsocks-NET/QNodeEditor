@@ -20,8 +20,6 @@ class TextSourceDataModel : public NodeDataModel
 public:
   TextSourceDataModel();
 
-  ~TextSourceDataModel() override;
-
 public:
 
   QString
@@ -56,8 +54,7 @@ public:
   {}
 
   QWidget *
-  embeddedWidget() override
-  { return _lineEdit; }
+  embeddedWidget() override;
 
 private Q_SLOTS:
 
@@ -65,6 +62,6 @@ private Q_SLOTS:
   onTextEdited(QString const &string);
 
 private:
-
+  QString _text;
   QLineEdit * _lineEdit;
 };

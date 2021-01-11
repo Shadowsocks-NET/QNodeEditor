@@ -20,7 +20,6 @@ class NumberDisplayDataModel : public NodeDataModel
 
 public:
   NumberDisplayDataModel();
-  ~NumberDisplayDataModel() override;
 
 public:
 
@@ -51,13 +50,17 @@ public:
   setInData(std::shared_ptr<NodeData> data, int) override;
 
   QWidget *
-  embeddedWidget() override { return _label; }
+  embeddedWidget() override;
 
   NodeValidationState
   validationState() const override;
 
   QString
   validationMessage() const override;
+
+signals:
+  void
+  updateLabel(QString);
 
 private:
 

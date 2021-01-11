@@ -11,45 +11,15 @@
 
 ImageShowModel::
 ImageShowModel()
-  : _label(new QLabel("Image will appear here"))
+  : _label(nullptr)
 {
-  _label->setAlignment(Qt::AlignVCenter | Qt::AlignHCenter);
-
-  QFont f = _label->font();
-  f.setBold(true);
-  f.setItalic(true);
-
-  _label->setFont(f);
-  _label->setFixedSize(200, 200);
-  _label->installEventFilter(this);
-}
-
-ImageShowModel::~ImageShowModel()
-{
-  if(_label && !_label->parent())
-    _label->deleteLater();
 }
 
 unsigned int
 ImageShowModel::
-nPorts(PortType portType) const
+nPorts(PortType) const
 {
-  unsigned int result = 1;
-
-  switch (portType)
-  {
-    case PortType::In:
-      result = 1;
-      break;
-
-    case PortType::Out:
-      result = 1;
-
-    default:
-      break;
-  }
-
-  return result;
+  return 1;
 }
 
 
@@ -67,7 +37,7 @@ eventFilter(QObject *object, QEvent *event)
       auto d = std::dynamic_pointer_cast<PixmapData>(_nodeData);
       if (d)
       {
-        _label->setPixmap(d->pixmap().scaled(w, h, Qt::KeepAspectRatio));
+        Q_EMIT updateLabel(d->pixmap().scaled(w, h, Qt::KeepAspectRatio));
       }
     }
   }
@@ -105,12 +75,35 @@ setInData(std::shared_ptr<NodeData> nodeData, PortIndex)
     int w = _label->width();
     int h = _label->height();
 
-    _label->setPixmap(d->pixmap().scaled(w, h, Qt::KeepAspectRatio));
+    Q_EMIT updateLabel(d->pixmap().scaled(w, h, Qt::KeepAspectRatio));
   }
   else
   {
-    _label->setPixmap(QPixmap());
+    Q_EMIT updateLabel(QPixmap());
   }
 
   Q_EMIT dataUpdated(0);
+}
+
+QWidget* ImageShowModel::embeddedWidget()
+{
+   if(!_label)
+   {
+      _label = new QLabel("Image will appear here");
+      _label->setAlignment(Qt::AlignVCenter | Qt::AlignHCenter);
+
+      QFont f = _label->font();
+      f.setBold(true);
+      f.setItalic(true);
+
+      _label->setFont(f);
+      _label->setFixedSize(200, 200);
+      _label->installEventFilter(this);
+
+      connect(this, &ImageShowModel::updateLabel,
+              _label, [this](const QPixmap& pix){
+                _label->setPixmap(pix);
+              });
+   }
+   return _label;
 }

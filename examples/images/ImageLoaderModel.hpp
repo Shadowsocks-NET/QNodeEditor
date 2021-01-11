@@ -22,9 +22,6 @@ class ImageLoaderModel : public NodeDataModel
 public:
   ImageLoaderModel();
 
-  virtual
-  ~ImageLoaderModel() override;
-
 public:
 
   QString
@@ -55,8 +52,7 @@ public:
   {}
 
   QWidget *
-  embeddedWidget() override
-  { return _label; }
+  embeddedWidget() override;
 
   bool
   resizable() const override

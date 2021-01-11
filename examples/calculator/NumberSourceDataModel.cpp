@@ -7,23 +7,9 @@
 
 NumberSourceDataModel::
 NumberSourceDataModel()
-  : _lineEdit(new QLineEdit())
+   : _number(std::make_shared<DecimalData>()),
+     _lineEdit(nullptr)
 {
-  _lineEdit->setValidator(new QDoubleValidator());
-
-  _lineEdit->setMaximumSize(_lineEdit->sizeHint());
-
-  connect(_lineEdit, &QLineEdit::textChanged,
-          this, &NumberSourceDataModel::onTextEdited);
-
-  _lineEdit->setText("0.0");
-}
-
-NumberSourceDataModel::~NumberSourceDataModel()
-{
-  if(_lineEdit && !_lineEdit->parent()){
-    _lineEdit->deleteLater();
-  }
 }
 
 
@@ -55,7 +41,8 @@ restore(QJsonObject const &p)
     if (ok)
     {
       _number = std::make_shared<DecimalData>(d);
-      _lineEdit->setText(strNum);
+      if (_lineEdit)
+         _lineEdit->setText(strNum);
     }
   }
 }
@@ -86,13 +73,14 @@ nPorts(PortType portType) const
 
 void
 NumberSourceDataModel::
-onTextEdited(QString const &string)
+onTextEdited(QString const&)
 {
-  Q_UNUSED(string);
-
   bool ok = false;
 
-  double number = _lineEdit->text().toDouble(&ok);
+  double number = 0.0;
+
+  if(_lineEdit)
+     number = _lineEdit->text().toDouble(&ok);
 
   if (ok)
   {
@@ -120,4 +108,22 @@ NumberSourceDataModel::
 outData(PortIndex)
 {
   return _number;
+}
+
+QWidget*
+NumberSourceDataModel::
+embeddedWidget()
+{
+   if(!_lineEdit)
+   {
+      _lineEdit = new QLineEdit();
+      _lineEdit->setValidator(new QDoubleValidator());
+      _lineEdit->setMaximumSize(_lineEdit->sizeHint());
+      _lineEdit->setText(QString::number(_number->number()));
+
+      connect(_lineEdit, &QLineEdit::textChanged,
+              this, &NumberSourceDataModel::onTextEdited);
+   }
+
+   return _lineEdit;
 }
