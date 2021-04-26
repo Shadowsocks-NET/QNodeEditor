@@ -20,6 +20,7 @@
 #include "AccumulatorModel.hpp"
 #include "MinModel.hpp"
 #include "MaxModel.hpp"
+#include "FibonacciModel.hpp"
 #include "Converters.hpp"
 
 using QtNodes::DataModelRegistry;
@@ -49,9 +50,11 @@ registerDataModels()
 
   ret->registerModel<ModuloModel>("Operators");
 
-  ret->registerModel<MinModel>("Operators");
+  ret->registerModel<MinModel>("Special");
 
-  ret->registerModel<MaxModel>("Operators");
+  ret->registerModel<MaxModel>("Special");
+
+  ret->registerModel<FibonacciModel>("Special");
 
   ret->registerTypeConverter(std::make_pair(DecimalData().type(),
                                             IntegerData().type()),
