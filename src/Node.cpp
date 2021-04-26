@@ -345,8 +345,11 @@ onPortRemoved(PortType portType, PortIndex index)
   for (int i = nPorts; i < static_cast<int>(entries.size()); ++i)
   {
      std::vector<Connection*> connections;
-     for (const auto& value : entries[index])
-       connections.push_back(value.second);
+     for (const auto& value : entries[index]){
+        if(Connection* connection = value.second){
+           connections.push_back(connection);
+        }
+     }
 
      // connections may be removed from entries in connectionRemoved()
      for (Connection* connection : connections)
