@@ -35,25 +35,17 @@ registerDataModels()
 {
   auto ret = std::make_shared<DataModelRegistry>();
   ret->registerModel<NumberSourceDataModel>("I/O//Sources");
-
   ret->registerModel<NumberDisplayDataModel>("I/O//Displays");
 
   ret->registerModel<AdditionModel>("Operators");
-
-  ret->registerModel<AccumulatorModel>("Operators");
-
   ret->registerModel<SubtractionModel>("Operators");
-
   ret->registerModel<MultiplicationModel>("Operators");
-
   ret->registerModel<DivisionModel>("Operators");
-
   ret->registerModel<ModuloModel>("Operators");
 
+  ret->registerModel<AccumulatorModel>("Special");
   ret->registerModel<MinModel>("Special");
-
   ret->registerModel<MaxModel>("Special");
-
   ret->registerModel<FibonacciModel>("Special");
 
   ret->registerTypeConverter(std::make_pair(DecimalData().type(),

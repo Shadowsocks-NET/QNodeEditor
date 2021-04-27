@@ -11,6 +11,10 @@ using QtNodes::NodeDataType;
 using QtNodes::NodeDataModel;
 using QtNodes::NodeValidationState;
 
+/*
+ * This model has the purpose of showing a model with dynamic input ports.
+ */
+
 class MaxModel : public NodeDataModel
 {
    Q_OBJECT

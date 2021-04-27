@@ -12,6 +12,10 @@ using QtNodes::NodeDataType;
 using QtNodes::NodeDataModel;
 using QtNodes::NodeValidationState;
 
+/*
+ * This model has the purpose of showing a node with dynamic output ports.
+ */
+
 class FibonacciModel : public NodeDataModel
 {
    Q_OBJECT
