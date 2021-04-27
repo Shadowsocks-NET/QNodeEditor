@@ -73,7 +73,7 @@ eraseConnection(PortType portType,
                 QUuid id)
 {
    auto& entry = getEntries(portType);
-   if(portIndex >= 0 && portIndex < entry.size()){
+   if(portIndex >= 0 && portIndex < static_cast<int>(entry.size())){
       entry[portIndex].erase(id);
    }
 }
