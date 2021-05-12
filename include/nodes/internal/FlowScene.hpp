@@ -102,8 +102,14 @@ public:
   /// Dump the scene on a JSON QByteArray
   QByteArray saveToMemory(QJsonDocument::JsonFormat format = QJsonDocument::Indented) const;
 
+  /// Dump the scene on a JSON Object.
+  QJsonObject saveToObject() const;
+
   /// Load a scene from a JSON QByteArray
   void loadFromMemory(const QByteArray& data);
+
+  /// Load a scene from a JSON Object
+  void loadFromObject(const QJsonObject& data);
 
   /// Load a scene from a JSON Object
   void loadFromMemory(const QJsonObject& data);
