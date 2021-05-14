@@ -1,21 +1,19 @@
 #pragma once
 
-#include <QtCore/QUuid>
 #include <QtCore/QJsonDocument>
+#include <QtCore/QUuid>
 #include <QtWidgets/QGraphicsScene>
-
-#include <unordered_map>
-#include <tuple>
 #include <functional>
+#include <tuple>
+#include <unordered_map>
 
-#include "QUuidStdHash.hpp"
-#include "Export.hpp"
 #include "DataModelRegistry.hpp"
+#include "Export.hpp"
+#include "QUuidStdHash.hpp"
 #include "TypeConverter.hpp"
 #include "memory.hpp"
 
-namespace QtNodes
-{
+namespace QtNodes {
 
 class NodeDataModel;
 class FlowItemInterface;
@@ -26,52 +24,45 @@ class ConnectionGraphicsObject;
 class NodeStyle;
 
 /// Scene holds connections and nodes.
-class NODE_EDITOR_PUBLIC FlowScene
-  : public QGraphicsScene
-{
+class NODE_EDITOR_PUBLIC FlowScene : public QGraphicsScene {
   Q_OBJECT
-public:
-
+ public:
   FlowScene(std::shared_ptr<DataModelRegistry> registry,
-            QObject * parent = Q_NULLPTR);
+            QObject* parent = Q_NULLPTR);
 
-  FlowScene(QObject * parent = Q_NULLPTR);
+  FlowScene(QObject* parent = Q_NULLPTR);
 
   ~FlowScene() override;
 
-public:
+ public:
+  std::shared_ptr<Connection> createConnection(PortType connectedPort,
+                                               Node& node, PortIndex portIndex);
 
-  std::shared_ptr<Connection>
-  createConnection(PortType connectedPort,
-                   Node& node,
-                   PortIndex portIndex);
+  std::shared_ptr<Connection> createConnection(
+      Node& nodeIn, PortIndex portIndexIn, Node& nodeOut,
+      PortIndex portIndexOut, TypeConverter const& converter = TypeConverter{});
 
-  std::shared_ptr<Connection>
-  createConnection(Node& nodeIn,
-                   PortIndex portIndexIn,
-                   Node& nodeOut,
-                   PortIndex portIndexOut,
-                   TypeConverter const & converter = TypeConverter{});
-
-  std::shared_ptr<Connection> restoreConnection(QJsonObject const &connectionJson);
+  std::shared_ptr<Connection> restoreConnection(
+      QJsonObject const& connectionJson);
 
   void deleteConnection(Connection& connection);
 
-  Node&createNode(std::unique_ptr<NodeDataModel> && dataModel);
+  Node& createNode(std::unique_ptr<NodeDataModel>&& dataModel);
 
-  Node&restoreNode(QJsonObject const& nodeJson);
+  Node& restoreNode(QJsonObject const& nodeJson);
 
   void removeNode(Node& node);
 
-  DataModelRegistry&registry() const;
+  DataModelRegistry& registry() const;
 
   void setRegistry(std::shared_ptr<DataModelRegistry> registry);
 
-  void iterateOverNodes(std::function<void(Node*)> const & visitor);
+  void iterateOverNodes(std::function<void(Node*)> const& visitor);
 
-  void iterateOverNodeData(std::function<void(NodeDataModel*)> const & visitor);
+  void iterateOverNodeData(std::function<void(NodeDataModel*)> const& visitor);
 
-  void iterateOverNodeDataDependentOrder(std::function<void(NodeDataModel*)> const & visitor);
+  void iterateOverNodeDataDependentOrder(
+      std::function<void(NodeDataModel*)> const& visitor);
 
   QPointF getNodePosition(Node const& node) const;
 
@@ -79,19 +70,27 @@ public:
 
   QSizeF getNodeSize(Node const& node) const;
 
-public:
+ public:
+  std::unordered_map<QUuid, std::unique_ptr<Node> > const& nodes() const;
 
-  std::unordered_map<QUuid, std::unique_ptr<Node> > const & nodes() const;
-
-  std::unordered_map<QUuid, std::shared_ptr<Connection> > const & connections() const;
+  std::unordered_map<QUuid, std::shared_ptr<Connection> > const& connections()
+      const;
 
   std::vector<Node*> allNodes() const;
 
   std::vector<Node*> selectedNodes() const;
 
-public:
-
+ public:
   void clearScene();
+
+  /// @name File IO
+  ///
+  /// These functions are for saving to and loading from files.
+  ///
+  /// @note These functions will launch a file dialog to retrieve a suitable
+  /// path for the JSON document.
+  ///
+  /// @{
 
   /// Open a FileDialog to save the scene in a .flow file
   void save() const;
@@ -99,46 +98,71 @@ public:
   /// Load a FileDialog to open a scene from a .flow file
   void load();
 
-  /// Dump the scene on a JSON QByteArray
-  QByteArray saveToMemory(QJsonDocument::JsonFormat format = QJsonDocument::Indented) const;
+  /// @name Memory IO
+  ///
+  /// These functions are for saving to and loading from memory.
+  ///
+  /// @{
 
-  /// Dump the scene on a JSON Object.
-  QJsonObject saveToObject() const;
+  /// Dump the scene on a JSON QByteArray
+  QByteArray saveToMemory(
+      QJsonDocument::JsonFormat format = QJsonDocument::Indented) const;
 
   /// Load a scene from a JSON QByteArray
   void loadFromMemory(const QByteArray& data);
+
+  /// @}
+
+  /// @name JSON Object IO
+  ///
+  /// These functions are for saving to and loading from JSON objects.
+  /// This is useful when embedding the nodes and their connections into a
+  /// JSON document that contains other data.
+  ///
+  /// @{
+
+  /// Dump the scene on a JSON Object.
+  QJsonObject saveToObject() const;
 
   /// Load a scene from a JSON Object
   void loadFromObject(const QJsonObject& data);
 
   /// Load a scene from a JSON Object
+  ///
+  /// @note Internally this is just an alias for @ref FlowScene::loadFromObject.
+  /// It is kept for backwards compatibility.
   void loadFromMemory(const QJsonObject& data);
 
-  /// Save only a subset of the nodes to memory, as well as the connections that link two nodes lying within this subset.
-  QByteArray copyNodes(const std::vector<Node*> & nodes) const;
+  /// @}
 
-  //! Paste selected nodes to the scene replacing uuids with new ones with a certain offset from the original position.
-  void pasteNodes(const QByteArray& data, const QPointF& pointOffset = QPointF(0,0));
+  /// Save only a subset of the nodes to memory, as well as the connections that
+  /// link two nodes lying within this subset.
+  QByteArray copyNodes(const std::vector<Node*>& nodes) const;
 
-Q_SIGNALS:
+  //! Paste selected nodes to the scene replacing uuids with new ones with a
+  //! certain offset from the original position.
+  void pasteNodes(const QByteArray& data,
+                  const QPointF& pointOffset = QPointF(0, 0));
+
+ Q_SIGNALS:
 
   /**
    * @brief Node has been created but not on the scene yet.
    * @see nodePlaced()
    */
-  void nodeCreated(Node &n);
+  void nodeCreated(Node& n);
 
   /**
    * @brief Node has been added to the scene.
    * @details Connect to this signal if need a correct position of node.
    * @see nodeCreated()
    */
-  void nodePlaced(Node &n);
+  void nodePlaced(Node& n);
 
-  void nodeDeleted(Node &n);
+  void nodeDeleted(Node& n);
 
-  void connectionCreated(Connection const &c);
-  void connectionDeleted(Connection const &c);
+  void connectionCreated(Connection const& c);
+  void connectionDeleted(Connection const& c);
 
   void nodeMoved(Node& n, const QPointF& newLocation);
 
@@ -154,10 +178,9 @@ Q_SIGNALS:
 
   void nodeContextMenu(Node& n, const QPointF& pos);
 
-private:
-
+ private:
   using SharedConnection = std::shared_ptr<Connection>;
-  using UniqueNode       = std::unique_ptr<Node>;
+  using UniqueNode = std::unique_ptr<Node>;
 
   // DO NOT reorder this member to go after the others.
   // This should outlive all the connections and nodes of
@@ -166,18 +189,16 @@ private:
   std::shared_ptr<DataModelRegistry> _registry;
 
   std::unordered_map<QUuid, SharedConnection> _connections;
-  std::unordered_map<QUuid, UniqueNode>       _nodes;
+  std::unordered_map<QUuid, UniqueNode> _nodes;
 
-private Q_SLOTS:
+ private Q_SLOTS:
 
   void setupConnectionSignals(Connection const& c);
 
   void sendConnectionCreatedToNodes(Connection const& c);
   void sendConnectionDeletedToNodes(Connection const& c);
-
 };
 
-Node*
-locateNodeAt(QPointF scenePoint, FlowScene &scene,
-             QTransform const & viewTransform);
-}
+Node* locateNodeAt(QPointF scenePoint, FlowScene& scene,
+                   QTransform const& viewTransform);
+}  // namespace QtNodes
