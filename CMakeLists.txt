@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.2)
 # version 3.4 is required as other do not work with C++14 and clang
 
 project(NodeEditor CXX)
+cmake_policy(SET CMP0072 NEW)
 
 set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)
 set(CMAKE_DISABLE_SOURCE_CHANGES  ON)
@@ -38,13 +39,21 @@ endif()
 
 add_subdirectory(external)
 
+find_package(QT NAMES Qt6 Qt5 COMPONENTS Core Widgets Gui REQUIRED)
+
+message(STATUS "Using Qt" ${QT_VERSION_MAJOR})
+
 # Find the QtWidgets library
-find_package(Qt5 5.10 COMPONENTS
+find_package(Qt${QT_VERSION_MAJOR} 5.10 COMPONENTS
              Core
              Widgets
              Gui)
 
-qt5_add_resources(RESOURCES ./resources/nodeeditor.qrc)
+if(${QT_VERSION_MAJOR} LESS 6)
+    qt5_add_resources(RESOURCES ./resources/nodeeditor.qrc)
+else()
+    qt_add_resources(RESOURCES ./resources/nodeeditor.qrc)
+endif()
 
 # Unfortunately, as we have a split include/src, AUTOMOC doesn't work.
 # We'll have to manually specify some files
@@ -93,14 +102,13 @@ target_include_directories(nodes
 
 target_link_libraries(nodes
   PUBLIC
-    Qt5::Core
-    Qt5::Widgets
-    Qt5::Gui
+    Qt${QT_VERSION_MAJOR}::Core
+    Qt${QT_VERSION_MAJOR}::Widgets
+    Qt${QT_VERSION_MAJOR}::Gui
 )
 
 target_compile_definitions(nodes
   PUBLIC
-    ${Qt5Widgets_DEFINITIONS}
     NODE_EDITOR_SHARED
   PRIVATE
     NODE_EDITOR_EXPORTS
@@ -133,11 +141,19 @@ set_target_properties(nodes
 
 file(GLOB_RECURSE HEADERS_TO_MOC include/nodes/internal/*.hpp)
 
-qt5_wrap_cpp(nodes_moc
-    ${HEADERS_TO_MOC}
-  TARGET nodes
-  OPTIONS --no-notes # Don't display a note for the headers which don't produce a moc_*.cpp
-)
+if(${QT_VERSION_MAJOR} LESS 6)
+    qt5_wrap_cpp(nodes_moc
+        ${HEADERS_TO_MOC}
+      TARGET nodes
+      OPTIONS --no-notes # Don't display a note for the headers which don't produce a moc_*.cpp
+    )
+else()
+    qt_wrap_cpp(nodes_moc
+        ${HEADERS_TO_MOC}
+      TARGET nodes
+      OPTIONS --no-notes # Don't display a note for the headers which don't produce a moc_*.cpp
+    )
+endif()
 
 target_sources(nodes PRIVATE ${nodes_moc})
 
