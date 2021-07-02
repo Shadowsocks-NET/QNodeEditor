@@ -5,6 +5,7 @@ This repository keeps master branch aligned with the original repository [paceho
 In the **develop branch** can be found some fix or feature never merged in the original repository and some additional feature.
 The status of the current improvements can be found in issues tracker. 
 However the main changes involve:
+* CMake Qt6 compatibie
 * Copy/paste functionality.
 * Allow multiple connection for a single input port.
 * Subcategories for nodes.
@@ -37,8 +38,8 @@ connections updating  the whole graph.
 
 ### Dependencies
 
-* Qt >5.2
-* CMake 3.2
+* Qt >5.10
+* CMake 3.4
 * Catch2
 
 ### Current state
