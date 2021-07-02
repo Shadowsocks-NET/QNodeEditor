@@ -38,7 +38,7 @@ connections updating  the whole graph.
 
 ### Dependencies
 
-* Qt >5.10
+* Qt > 5.12
 * CMake 3.4
 * Catch2
 
