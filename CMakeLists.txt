@@ -39,9 +39,12 @@ endif()
 
 add_subdirectory(external)
 
-find_package(QT NAMES Qt6 Qt5 COMPONENTS Core Widgets Gui REQUIRED)
-
-message(STATUS "Using Qt" ${QT_VERSION_MAJOR})
+if(QT_VERSION_MAJOR)
+    message(STATUS "Using specified Qt version " ${QT_VERSION_MAJOR})
+else()
+    find_package(QT NAMES Qt6 Qt5 COMPONENTS Core Gui Widgets REQUIRED)
+    message(STATUS "Using Qt" ${QT_VERSION_MAJOR})
+endif()
 
 # Find the QtWidgets library
 find_package(Qt${QT_VERSION_MAJOR} 5.10 COMPONENTS
