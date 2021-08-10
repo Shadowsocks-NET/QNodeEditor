@@ -18,7 +18,11 @@ set(NE_DEVELOPER_DEFAULTS "${is_root_project}" CACHE BOOL "Turns on default sett
 
 option(BUILD_TESTING "Build tests" "${NE_DEVELOPER_DEFAULTS}")
 option(BUILD_EXAMPLES "Build Examples" "${NE_DEVELOPER_DEFAULTS}")
-option(BUILD_SHARED_LIBS "Build as shared library" ON)
+
+if(NOT DEFINED BUILD_SHARED_LIBS)
+  set(BUILD_SHARED_LIBS ON)
+endif()
+
 option(BUILD_DEBUG_POSTFIX_D "Append d suffix to debug libraries" OFF)
 option(NE_FORCE_TEST_COLOR "Force colorized unit test output" OFF)
 
